@@ -11,6 +11,8 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
+        "oriceon/toastr-5-laravel": "^1.0",
+        "yajra/laravel-datatables-oracle": "~9.0",
         "laravel/ui": "^3.2"
     },
     "require-dev": {

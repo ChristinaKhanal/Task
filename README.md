@@ -1,3 +1,26 @@
+
+A Simple Create/Read/Update/Delete(CRUD) Application created using laravel 8, Vue.js, Axios with composer and npm package or dependency management. 
+Firstly, you install composer and then get your Apache and MySQL running, then launch the server console to install Laravel and the other dependencies. Below are the steps taken:
+
+1. Installing laravel in folder name task
+2. Install npm by running npm install
+3. Next, installing vue-router and vue-axois where vue-axios is used for calling Laravel API
+4. I have also installed two packages named JsonCSV and pagination where JsonCSV exports JSON Data into CSV file and downloads the resulting file and Pagination package for adding pagination on the list that has all created clients
+5. All the installed dependencies were added in app.js file which can be found in resources>js folder
+6. After installation of all the dependencies the controller named ClientController.php was created in app/Http/Controllers/API folder which has all the functionalities of CRUD for API feed
+7. Route for the api was defined in api.php file
+8. Completing the API (Backend) part, work for vuejs app was started for which one blade file named app.blade.php was created in resouces/views/layouts. 
+9. App.vue file and following component files were created in resources>js>components folder
+	- AllClients.vue
+	- AddClient.vue
+	- EditClient.vue
+10. In App.vue is the main Vue file where all the route page was shown
+11. Now, inorder to define the vue routes a file name routes.js was created in resources>js folder. 
+
+
+
+
+
 <p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
 
 <p align="center">
@@ -60,3 +83,13 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+
+
+
+
+
+  
+
+ 
