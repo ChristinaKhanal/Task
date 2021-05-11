@@ -15,7 +15,8 @@ Firstly, you install composer and then get your Apache and MySQL running, then l
 	- AddClient.vue
 	- EditClient.vue
 10. In App.vue is the main Vue file where all the route page was shown
-11. Now, inorder to define the vue routes a file name routes.js was created in resources>js folder. 
+11. Now, inorder to define the vue routes a file name routes.js was created in resources>js folder 
+12. Seeder file was created which will be executed by unning php artisan db:seed command
 
 
 

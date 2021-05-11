@@ -1,20 +1,19 @@
 <template>
     <div>
-
         <download-csv
-                class   = "btn btn-default"
+                class   = "btn btn-primary"
                 :data   = "allClients"
-                name    = "filename.csv">
+                name    = "Clients.csv">
 
             Download CSV
 
         </download-csv>
         <h3 class="text-center">All Clients</h3><br/>
 
-        <table class="table table-bordered">
+        <table class="table">
             <thead>
             <tr>
-                <th>ID</th>
+                <th style="width: 3%;">ID</th>
                 <th>Name</th>
                 <th>Gender</th>
                 <th>Phone</th>
@@ -45,13 +44,14 @@
                 <!--                <td>{{ client.updated_at }}</td>-->
                 <td>
                     <div class="btn-group" role="group">
-                        <router-link :to="{name: 'edit', params: { id: client.id }}" class="btn btn-primary">
-                            <i class="fa fa-trash">Edit</i>
+                        <router-link :to="{name: 'editClient', params: { id: client.id }}" class="btn btn-primary">
+                            <i class="fa fa-pencil"></i>
                         </router-link>
-                        <button class="btn btn-danger" @click="deletePost(client.id)">Delete</button>
+                        <button class="btn btn-danger" @click="deletePost(client.id)"><i class="fa fa-trash"></i></button>
                     </div>
                 </td>
             </tr>
+            <br>
             <pagination align="center" :data="clients" @pagination-change-page="getResults"></pagination>
             </tbody>
         </table>

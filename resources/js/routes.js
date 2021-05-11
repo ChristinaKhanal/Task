@@ -9,13 +9,13 @@ export const routes = [
         component: AllClients
     },
     {
-        name: 'add',
-        path: '/add',
+        name: 'addClient',
+        path: '/add-client',
         component: AddClient
     },
     {
-        name: 'edit',
-        path: '/edit/:id',
+        name: 'editClient',
+        path: '/edit-client/:id',
         component: EditClient
     },
 ];

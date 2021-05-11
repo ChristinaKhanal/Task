@@ -1881,11 +1881,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
 
 /***/ }),
@@ -1963,13 +1958,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
+      errors: [],
       client: {
         name: '',
         gender: '',
@@ -1980,31 +1972,28 @@ __webpack_require__.r(__webpack_exports__);
         dob: '',
         education_background: '',
         mode_of_contact: ''
-      },
-      errors: [],
-      msg: []
+      }
     };
   },
   methods: {
     addClient: function addClient() {
       var _this = this;
 
-      this.checkForm();
-      this.axios.post('http://task.test/api/client/create', this.client).then(function (response) {
-        return _this.$router.push({
-          name: 'home'
+      if (this.checkForm()) {
+        this.axios.post('http://task.test/api/client/create', this.client).then(function (response) {
+          return _this.$router.push({
+            name: 'home'
+          });
+        })["catch"](function (error) {
+          return console.log(error);
         });
-      })["catch"](function (error) {
-        return console.log(error);
-      })["finally"](function () {
-        return _this.loading = false;
-      });
+      }
     },
     checkForm: function checkForm(e) {
-      this.error = [];
+      this.errors = [];
 
       if (!this.client.name) {
-        this.errors.push("Name is required");
+        this.errors.push('Name is required');
       }
 
       if (!this.client.gender) {
@@ -2035,6 +2024,10 @@ __webpack_require__.r(__webpack_exports__);
 
       if (!this.client.mode_of_contact) {
         this.errors.push("Mode of Contact is Required");
+      }
+
+      if (this.client.name && this.client.gender && this.client.email && this.client.address && this.client.nationality && this.client.dob && this.client.education_background && this.client.mode_of_contact) {
+        return true;
       }
 
       if (!this.errors.length) {
@@ -2146,14 +2139,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   created: function created() {
     var _this = this;
 
-    // this.axios.get('http://task.test/api/export').then(({data}) => {
-    //     this.allClients = data
-    // });
     this.axios.get("http://task.test/api/export").then(function (res) {
       _this.allClients = res.data;
     });
   },
-  // },
   methods: {
     getResults: function getResults() {
       var _arguments = arguments,
@@ -2189,17 +2178,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.axios["delete"]("http://task.test/api/client/delete/".concat(id)).then(function (response) {
         var i = _this3.clients.map(function (item) {
           return item.id;
-        }).indexOf(id); // find index of your object
-
+        }).indexOf(id);
 
         _this3.clients.splice(i, 1);
       });
-    } // exportCSV() {
-    //     this.axios.get(`http://task.test/api/export`).then(({data})=>{
-    //         this.allClients = data.data
-    //         })
-    // }
-
+    }
   }
 });
 
@@ -2285,7 +2268,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.axios.get("http://task.test/api/client/edit/".concat(this.$route.params.id)).then(function (response) {
-      _this.client = response.data; // console.log(response.data);
+      _this.client = response.data;
     });
   },
   methods: {
@@ -2414,12 +2397,12 @@ var routes = [{
   path: '/',
   component: _components_AllClients_vue__WEBPACK_IMPORTED_MODULE_0__.default
 }, {
-  name: 'add',
-  path: '/add',
+  name: 'addClient',
+  path: '/add-client',
   component: _components_AddClient_vue__WEBPACK_IMPORTED_MODULE_1__.default
 }, {
-  name: 'edit',
-  path: '/edit/:id',
+  name: 'editClient',
+  path: '/edit-client/:id',
   component: _components_EditClient_vue__WEBPACK_IMPORTED_MODULE_2__.default
 }];
 
@@ -45367,7 +45350,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* binding */ render),
 /* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container"},[_c('div',{staticClass:"card",staticStyle:{"margin":"20px 0px 20px 0px"}},[_c('div',{staticClass:"card-header"},[_c('router-link',{staticClass:"btn btn-primary",attrs:{"to":"/"}},[_vm._v("Home")]),_vm._v(" "),_c('router-link',{staticClass:"btn btn-primary",attrs:{"to":"/add"}},[_vm._v("Add Client")])],1),_vm._v(" "),_c('div',{staticClass:"card-body"},[_c('router-view')],1)]),_vm._v(" "),_vm._m(0),_vm._v(" "),_c('br')])}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"container"},[_c('div',{staticClass:"row"},[_c('div',{staticClass:"col-md-12"},[_c('div',{staticClass:"card",staticStyle:{"margin":"20px 0px 20px 0px"}},[_c('div',{staticClass:"card-header"},[_c('router-link',{staticClass:"btn btn-primary",attrs:{"to":"/"}},[_vm._v("Home")]),_vm._v(" "),_c('router-link',{staticClass:"btn btn-primary",attrs:{"to":"/add-client"}},[_vm._v("Add Client")])],1),_vm._v(" "),_c('div',{staticClass:"card-body"},[_c('router-view')],1)]),_vm._v(" "),_vm._m(0)])])])}
 var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('nav',{staticClass:"navbar navbar-expand-lg navbar-light bg-light"},[_c('div',{staticClass:"collapse navbar-collapse"},[_c('div',{staticClass:"navbar-nav"})])])}]
 render._withStripped = true
 
@@ -45386,7 +45369,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* binding */ render),
 /* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('h3',{staticClass:"text-center"},[_vm._v("Add Client")]),_vm._v(" "),_c('div',{staticClass:"row"},[(_vm.errors.length)?_c('p',[_c('b',[_vm._v("Please correct the following error(s):")]),_vm._v(" "),_c('ul',_vm._l((_vm.errors),function(error){return _c('li',[_vm._v(_vm._s(error.name))])}),0)]):_vm._e(),_vm._v(" "),_c('div',{staticClass:"col-md-6"},[_c('form',{on:{"submit":function($event){$event.preventDefault();return _vm.addClient($event)}}},[_c('div',{staticClass:"form-group"},[_c('label',[_vm._v("Name")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.name),expression:"client.name"}],staticClass:"form-control",attrs:{"type":"text","id":"name","name":"name"},domProps:{"value":(_vm.client.name)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.client, "name", $event.target.value)}}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',[_vm._v("Gender")]),_vm._v(" "),_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.gender),expression:"client.gender"}],staticClass:"form-select",attrs:{"id":"gender","aria-label":"Gender","name":"gender"},on:{"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.$set(_vm.client, "gender", $event.target.multiple ? $$selectedVal : $$selectedVal[0])}}},[_c('option',{attrs:{"selected":""}},[_vm._v("Select Your Gender")]),_vm._v(" "),_c('option',{attrs:{"value":"male"}},[_vm._v("Male")]),_vm._v(" "),_c('option',{attrs:{"value":"female"}},[_vm._v("Female")]),_vm._v(" "),_c('option',{attrs:{"value":"other"}},[_vm._v("Other")])])]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',[_vm._v("Phone")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.phone),expression:"client.phone"}],staticClass:"form-control",attrs:{"type":"text"},domProps:{"value":(_vm.client.phone)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.client, "phone", $event.target.value)}}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',[_vm._v("Email Address")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.email),expression:"client.email"}],staticClass:"form-control",attrs:{"type":"text"},domProps:{"value":(_vm.client.email)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.client, "email", $event.target.value)}}}),_vm._v(" "),(_vm.msg.email)?_c('span',[_vm._v(_vm._s(_vm.msg.email))]):_vm._e()]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',[_vm._v("Address")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.address),expression:"client.address"}],staticClass:"form-control",attrs:{"type":"text"},domProps:{"value":(_vm.client.address)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.client, "address", $event.target.value)}}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',[_vm._v("nationality")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.nationality),expression:"client.nationality"}],staticClass:"form-control",attrs:{"type":"text"},domProps:{"value":(_vm.client.nationality)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.client, "nationality", $event.target.value)}}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',[_vm._v("Date of Birth")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.dob),expression:"client.dob"}],staticClass:"form-control",attrs:{"type":"date"},domProps:{"value":(_vm.client.dob)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.client, "dob", $event.target.value)}}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',[_vm._v("Education Background")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.education_background),expression:"client.education_background"}],staticClass:"form-control",attrs:{"type":"text"},domProps:{"value":(_vm.client.education_background)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.client, "education_background", $event.target.value)}}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',[_vm._v("Mode of Contact")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.mode_of_contact),expression:"client.mode_of_contact"}],attrs:{"type":"radio","id":"email","value":"email"},domProps:{"checked":_vm._q(_vm.client.mode_of_contact,"email")},on:{"change":function($event){return _vm.$set(_vm.client, "mode_of_contact", "email")}}}),_vm._v(" "),_c('label',{attrs:{"for":"email"}},[_vm._v("Email")]),_c('br'),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.mode_of_contact),expression:"client.mode_of_contact"}],attrs:{"type":"radio","id":"phone","value":"phone"},domProps:{"checked":_vm._q(_vm.client.mode_of_contact,"phone")},on:{"change":function($event){return _vm.$set(_vm.client, "mode_of_contact", "phone")}}}),_vm._v(" "),_c('label',{attrs:{"for":"phone"}},[_vm._v("Phone")]),_c('br'),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.mode_of_contact),expression:"client.mode_of_contact"}],attrs:{"type":"radio","id":"none","value":"none"},domProps:{"checked":_vm._q(_vm.client.mode_of_contact,"none")},on:{"change":function($event){return _vm.$set(_vm.client, "mode_of_contact", "none")}}}),_vm._v(" "),_c('label',{attrs:{"for":"none"}},[_vm._v("None")])]),_vm._v(" "),_c('button',{staticClass:"btn btn-primary",attrs:{"type":"submit"}},[_vm._v("Add Client")])])])])])}
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"col-md-12"},[_c('h3',{staticClass:"text-center"},[_vm._v("Add Client")]),_vm._v(" "),(_vm.errors.length)?_c('p',[_c('b',[_vm._v("Please correct the following error(s):")]),_vm._v(" "),_c('ul',_vm._l((_vm.errors),function(error){return _c('li',[_vm._v(_vm._s(error))])}),0)]):_vm._e(),_vm._v(" "),_c('form',{attrs:{"novalidate":"true"},on:{"submit":function($event){$event.preventDefault();return _vm.addClient($event)}}},[_c('div',{staticClass:"form-group"},[_c('label',[_vm._v("Name")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.name),expression:"client.name"}],staticClass:"form-control",attrs:{"type":"text","id":"name","name":"name"},domProps:{"value":(_vm.client.name)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.client, "name", $event.target.value)}}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',[_vm._v("Gender")]),_vm._v(" "),_c('select',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.gender),expression:"client.gender"}],staticClass:"form-select",attrs:{"id":"gender","aria-label":"Gender","name":"gender"},on:{"change":function($event){var $$selectedVal = Array.prototype.filter.call($event.target.options,function(o){return o.selected}).map(function(o){var val = "_value" in o ? o._value : o.value;return val}); _vm.$set(_vm.client, "gender", $event.target.multiple ? $$selectedVal : $$selectedVal[0])}}},[_c('option',{attrs:{"selected":""}},[_vm._v("Select Your Gender")]),_vm._v(" "),_c('option',{attrs:{"value":"male"}},[_vm._v("Male")]),_vm._v(" "),_c('option',{attrs:{"value":"female"}},[_vm._v("Female")]),_vm._v(" "),_c('option',{attrs:{"value":"other"}},[_vm._v("Other")])])]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',[_vm._v("Phone")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.phone),expression:"client.phone"}],staticClass:"form-control",attrs:{"type":"text"},domProps:{"value":(_vm.client.phone)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.client, "phone", $event.target.value)}}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',[_vm._v("Email Address")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.email),expression:"client.email"}],staticClass:"form-control",attrs:{"type":"text"},domProps:{"value":(_vm.client.email)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.client, "email", $event.target.value)}}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',[_vm._v("Address")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.address),expression:"client.address"}],staticClass:"form-control",attrs:{"type":"text"},domProps:{"value":(_vm.client.address)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.client, "address", $event.target.value)}}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',[_vm._v("nationality")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.nationality),expression:"client.nationality"}],staticClass:"form-control",attrs:{"type":"text"},domProps:{"value":(_vm.client.nationality)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.client, "nationality", $event.target.value)}}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',[_vm._v("Date of Birth")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.dob),expression:"client.dob"}],staticClass:"form-control",attrs:{"type":"date"},domProps:{"value":(_vm.client.dob)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.client, "dob", $event.target.value)}}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',[_vm._v("Education Background")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.education_background),expression:"client.education_background"}],staticClass:"form-control",attrs:{"type":"text"},domProps:{"value":(_vm.client.education_background)},on:{"input":function($event){if($event.target.composing){ return; }_vm.$set(_vm.client, "education_background", $event.target.value)}}})]),_vm._v(" "),_c('div',{staticClass:"form-group"},[_c('label',[_vm._v("Mode of Contact")]),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.mode_of_contact),expression:"client.mode_of_contact"}],attrs:{"type":"radio","id":"email","value":"email"},domProps:{"checked":_vm._q(_vm.client.mode_of_contact,"email")},on:{"change":function($event){return _vm.$set(_vm.client, "mode_of_contact", "email")}}}),_vm._v(" "),_c('label',{attrs:{"for":"email"}},[_vm._v("Email")]),_c('br'),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.mode_of_contact),expression:"client.mode_of_contact"}],attrs:{"type":"radio","id":"phone","value":"phone"},domProps:{"checked":_vm._q(_vm.client.mode_of_contact,"phone")},on:{"change":function($event){return _vm.$set(_vm.client, "mode_of_contact", "phone")}}}),_vm._v(" "),_c('label',{attrs:{"for":"phone"}},[_vm._v("Phone")]),_c('br'),_vm._v(" "),_c('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.client.mode_of_contact),expression:"client.mode_of_contact"}],attrs:{"type":"radio","id":"none","value":"none"},domProps:{"checked":_vm._q(_vm.client.mode_of_contact,"none")},on:{"change":function($event){return _vm.$set(_vm.client, "mode_of_contact", "none")}}}),_vm._v(" "),_c('label',{attrs:{"for":"none"}},[_vm._v("None")])]),_vm._v(" "),_c('button',{staticClass:"btn btn-primary",attrs:{"type":"submit"}},[_vm._v("Add Client")])])])}
 var staticRenderFns = []
 render._withStripped = true
 
@@ -45405,8 +45388,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* binding */ render),
 /* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
 /* harmony export */ });
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('download-csv',{staticClass:"btn btn-default",attrs:{"data":_vm.allClients,"name":"filename.csv"}},[_vm._v("\n\n            Download CSV (This is a slot)\n\n        ")]),_vm._v(" "),_c('h3',{staticClass:"text-center"},[_vm._v("All Clients")]),_c('br'),_vm._v(" "),_c('table',{staticClass:"table table-bordered"},[_vm._m(0),_vm._v(" "),_c('tbody',[_vm._l((_vm.clients.data),function(client){return _c('tr',{key:client.id},[_c('td',[_vm._v(_vm._s(client.id))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(client.name))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(client.gender))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(client.phone))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(client.email))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(client.address))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(client.nationality))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(client.dob))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(client.education_background))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(client.mode_of_contact))]),_vm._v(" "),_c('td',[_c('div',{staticClass:"btn-group",attrs:{"role":"group"}},[_c('router-link',{staticClass:"btn btn-primary",attrs:{"to":{name: 'edit', params: { id: client.id }}}},[_c('i',{staticClass:"fa fa-trash"},[_vm._v("Edit")])]),_vm._v(" "),_c('button',{staticClass:"btn btn-danger",on:{"click":function($event){return _vm.deletePost(client.id)}}},[_vm._v("Delete")])],1)])])}),_vm._v(" "),_c('pagination',{attrs:{"align":"center","data":_vm.clients},on:{"pagination-change-page":_vm.getResults}})],2)])],1)}
-var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('thead',[_c('tr',[_c('th',[_vm._v("ID")]),_vm._v(" "),_c('th',[_vm._v("Name")]),_vm._v(" "),_c('th',[_vm._v("Gender")]),_vm._v(" "),_c('th',[_vm._v("Phone")]),_vm._v(" "),_c('th',[_vm._v("Email")]),_vm._v(" "),_c('th',[_vm._v("Address")]),_vm._v(" "),_c('th',[_vm._v("Nationality")]),_vm._v(" "),_c('th',[_vm._v("Date Of Birth")]),_vm._v(" "),_c('th',[_vm._v("Education Background")]),_vm._v(" "),_c('th',[_vm._v("Mode of Contact")]),_vm._v(" "),_c('th',[_vm._v("Actions")])])])}]
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('download-csv',{staticClass:"btn btn-primary",attrs:{"data":_vm.allClients,"name":"Clients.csv"}},[_vm._v("\n\n        Download CSV\n\n    ")]),_vm._v(" "),_c('h3',{staticClass:"text-center"},[_vm._v("All Clients")]),_c('br'),_vm._v(" "),_c('table',{staticClass:"table"},[_vm._m(0),_vm._v(" "),_c('tbody',[_vm._l((_vm.clients.data),function(client){return _c('tr',{key:client.id},[_c('td',[_vm._v(_vm._s(client.id))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(client.name))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(client.gender))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(client.phone))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(client.email))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(client.address))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(client.nationality))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(client.dob))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(client.education_background))]),_vm._v(" "),_c('td',[_vm._v(_vm._s(client.mode_of_contact))]),_vm._v(" "),_c('td',[_c('div',{staticClass:"btn-group",attrs:{"role":"group"}},[_c('router-link',{staticClass:"btn btn-primary",attrs:{"to":{name: 'editClient', params: { id: client.id }}}},[_c('i',{staticClass:"fa fa-pencil"})]),_vm._v(" "),_c('button',{staticClass:"btn btn-danger",on:{"click":function($event){return _vm.deletePost(client.id)}}},[_c('i',{staticClass:"fa fa-trash"})])],1)])])}),_vm._v(" "),_c('br'),_vm._v(" "),_c('pagination',{attrs:{"align":"center","data":_vm.clients},on:{"pagination-change-page":_vm.getResults}})],2)])],1)}
+var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('thead',[_c('tr',[_c('th',{staticStyle:{"width":"3%"}},[_vm._v("ID")]),_vm._v(" "),_c('th',[_vm._v("Name")]),_vm._v(" "),_c('th',[_vm._v("Gender")]),_vm._v(" "),_c('th',[_vm._v("Phone")]),_vm._v(" "),_c('th',[_vm._v("Email")]),_vm._v(" "),_c('th',[_vm._v("Address")]),_vm._v(" "),_c('th',[_vm._v("Nationality")]),_vm._v(" "),_c('th',[_vm._v("Date Of Birth")]),_vm._v(" "),_c('th',[_vm._v("Education Background")]),_vm._v(" "),_c('th',[_vm._v("Mode of Contact")]),_vm._v(" "),_c('th',[_vm._v("Actions")])])])}]
 render._withStripped = true
 
 

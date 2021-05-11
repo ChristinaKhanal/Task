@@ -12,12 +12,13 @@ class ClientController extends Controller
 {
     public function index()
     {
-       $data = Client::paginate(1);
+       $data = Client::paginate(4);
         return response()->json($data);
     }
 
     public function create(StoreClient $request)
     {
+
         $data = Client::create($request->all());
         return $data->toArray();
 
